@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DB Handson1</title>
+</head>
+<body>
+    <h2>Query the collection ""employee"" and list all the documents</h2>
+    <p>
+        const getAllEmployees = async (req, res) => {
+            const employees = await employee.find({}).toArray();
+            res.send({ msg: "All employees", data: employees });
+          }
+          
+    </p>
+
+
+    <h2>Query the collection ""employee"" and list the employees who are having salary more than 30000</h2>
+    <p>
+        const getHighSalaryEmployees = async (req, res) => {
+            const highSalaryEmployees = await employee.find({ salary: { $gt: 30000 } }).toArray();
+            res.send({ msg: "Employees with a salary > 30000", data: highSalaryEmployees });
+          }
+          
+    </p>
+
+    <h2>Query the collection ""employee"" and list the employees who are having experience more than 2 years.</h2>
+    <p>
+        const getExperiencedEmployees = async (req, res) => {
+            const experiencedEmployees = await employee.find({ overallExp: { $gt: 2 } }).toArray();
+            res.send({ msg: "Experienced employees (exp > 2 years)", data: experiencedEmployees });
+          }
+          
+
+    </p>
+
+    <h2>Query the collection ""employee"" and list the employees who are graduated after 2015 and having experience more than 1 year </h2>
+    <p>
+        const getRecentGraduatesWithExperience = async (req, res) => {
+            const recentGraduatesWithExperience = await employee.find({
+              yearGrad: { $gt: 2015 },
+              overallExp: { $gt: 1 }
+            }).toArray();
+            res.send({ msg: "Recent graduates with exp > 1 year", data: recentGraduatesWithExperience });
+          }
+          
+          
+    </p>
+
+
+    <h2>Query the collection ""employee"" and update the salary of the employee whose salary is greater than 70000 to 65000</h2>
+    <p>
+        const updateHighSalaryEmployees = async (req, res) => {
+            const filter = { salary: { $gt: 70000 } };
+            const update = { $set: { salary: 65000 } };
+            const result = await employee.updateMany(filter, update);
+            res.send({ msg: "Updated high salary employees", data: result.modifiedCount });
+          }
+          
+
+    </p>
+
+    <h2>Delete all the documents from ""employee"" where last company is Y"</h2>
+    <p>
+        const deleteEmployeesFromCompanyY = async (req, res) => {
+            const filter = { lastCompany: "Y" };
+            const result = await employee.deleteMany(filter);
+            res.send({ msg: "Deleted employees from company Y", data: result.deletedCount });
+          }
+          
+
+    </p>
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DB Handson1</title>
+</head>
+<body>
+    <h2>Query the collection ""employee"" and list all the documents</h2>
+    <p>
+        Human_Resource> db.employee.find()
+    </p>
+
+
+    <h2>Query the collection ""employee"" and list the employees who are having salary more than 30000</h2>
+    <p>
+        Human_Resource> db.employee.find({"salary":{$gt:30000}})
+    </p>
+
+    <h2>Query the collection ""employee"" and list the employees who are having experience more than 2 years.</h2>
+    <p>
+        db.employee.find({ "overallExp": { $gt: 2 } })
+
+    </p>
+
+    <h2>Query the collection ""employee"" and list the employees who are graduated after 2015 and having experience more than 1 year </h2>
+    <p>
+        db.employee.find({
+            "yearGrad": { $gt: 2015 },
+            "overallExp": { $gt: 1 }
+          })
+          
+    </p>
+
+
+    <h2>Query the collection ""employee"" and update the salary of the employee whose salary is greater than 70000 to 65000</h2>
+    <p>
+        db.employee.updateMany(
+            { "salary": { $gt: 70000 } },
+            { $set: { "salary": 65000 } }
+            )
+
+    </p>
+
+    <h2>Delete all the documents from ""employee"" where last company is Y"</h2>
+    <p>
+        db.employee.deleteMany({ "lastCompany": "Y" })
+
+    </p>
+</body>
+</html>
