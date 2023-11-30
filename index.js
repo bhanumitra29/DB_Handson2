@@ -1,26 +1,32 @@
-const express = require("express");
-const route = require("./product_Router");
+const express = require('express');
+
 const app = express();
-
-app.use(express.json());
-
-// Correct usage of the route object and its defined routes
-app.use("/api", route); 
-
+const port = 4004;
 const cors = require('cors');
-const { connection } = require("./config/db");
 
-app.use(cors());
+const { route } = require('./route');
+const { connection } = require('./config/db');
 
-app.get("/", (req, res) => {
-  res.send("Api is running");
+app.use(express.json())
+app.get('/', (req, res) => {
+  res.send('default Home page');
 });
 
-app.listen(4009, async () => {
+
+app.use(cors({
+    origin:"*"
+}))
+
+
+app.use('/api',route)
+
+
+app.listen(port, async() => {
   try {
     await connection();
-    console.log("The port is running on 4009");
-  } catch (err) {
-    console.log(err, "Error occurred");
-  }
+    console.log(`Server is running on port ${port}`);
+}
+catch (err) {
+    console.log("error", err);
+}
 });

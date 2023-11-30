@@ -11,7 +11,7 @@ const connection = async () => {
         console.log("error connecting DB", err);
     }
 }
-connection();
+
 
 
 const database = mongoserver.db("Human_Resource");
